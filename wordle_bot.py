@@ -62,7 +62,7 @@ class MyClient(discord.Client):
             total = 0
             for score in scoreboard[author]['scores']:
                 if score == 'X':
-                    total += scoreboard[author]['scores'][score]*10
+                    total += scoreboard[author]['scores'][score]*12
                 else:
                     total += scoreboard[author]['scores'][score]*int(score)
                 # div += scoreboard[author]['scores'][score]
