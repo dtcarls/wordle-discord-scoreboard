@@ -1,2 +1,1 @@
-# wordle-discord-scoreboard
-discord bot to keep track of wordle scores
+tracks wordle scores in discord
