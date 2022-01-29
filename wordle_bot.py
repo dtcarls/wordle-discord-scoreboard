@@ -29,11 +29,12 @@ class MyClient(discord.Client):
             print("Author: " + str(author))
             print("Message:" + str(message.content))
 
-        if 'Wordle' and '/6' in message.content:
+        if 'Wordle' in message.content and '/6' in message.content:
             line = message.content.split('\n')[0]
 
             score = line.split('/')[0][-1]
             if DEBUG:
+                print("inside")
                 print(line)
                 print(score)
 
