@@ -49,7 +49,7 @@ class MyClient(discord.Client):
 
             if author not in scoreboard:
                 scoreboard[author] = {'streak': 0, 'games': 0, 'mean': 0, 'scores': {
-                    '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, 'X': 0}}
+                    '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, 'X': 0}, 'golf': 0}
 
             scoreboard[author]['scores'][score] = scoreboard[author]['scores'][score]+1
 
@@ -100,7 +100,7 @@ class MyClient(discord.Client):
             n=1
             msg="Current Scoreboard\n"
             for key in sorted_scoreboard:
-                msg+=str(n)+": "+key+" - "+str(scoreboard[key]['games'])+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[author]['golf'])+" golf score\n"
+                msg+=str(n)+": "+key+" - "+str(scoreboard[key]['games'])+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
                 n+=1
             await message.channel.send(msg)
 
