@@ -98,11 +98,13 @@ class MyClient(discord.Client):
 
             sorted_scoreboard=sorted(scoreboard, key=lambda x: scoreboard[x]['mean'])
             n=1
-            msg="Current Scoreboard\n"
+            msg="```Current Scoreboard\n"
             for key in sorted_scoreboard:
-                msg+=str(n)+": "+key+" - "+str(scoreboard[key]['games'])+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
+                msg+=str(n).zfill(2)+": "+key.ljust(20)+"["+str(scoreboard[key]['games']).zfill(2)+" games]\n\t"+str(scoreboard[key]['golf']).rjust(2)+" golf score - "+str(round(scoreboard[key]['mean'],2)).ljust(4,'0')+" avg round\n"
+                # msg+=str(n).zfill(2)+": "+key.ljust(20)+" - "+str(scoreboard[key]['games']).zfill(2)+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
+                # msg+=str(n)+": "+key)+" - "+str(scoreboard[key]['games']).zfill(2)+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
                 n+=1
-            await message.channel.send(msg)
+            await message.channel.send(msg+"```")
 
         if '!stats' in message.content:
             scoreboard_file = open('scoreboard.json', 'r')
@@ -111,6 +113,20 @@ class MyClient(discord.Client):
 
             msg="Stats for "+author+":\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score\n"+str(scoreboard[author]['scores'])
             await message.channel.send(msg)
+
+    def align(array):
+        col_size = {}
+        for row in array:
+            for i, col in enumerate(row):
+                col_size[i] = max(col_size.get(i, 0), len(col))
+        ncols = len(col_size)
+        result = []
+        for row in array:
+            row = list(row) + [''] * (ncols - len(row))
+            for i, col in enumerate(row):
+                row[i] = col.ljust(col_size[i])
+            result.append(row)
+        return result
 
 
 client = MyClient()
