@@ -59,22 +59,38 @@ class MyClient(discord.Client):
             #     await message.add_reaction('\U00000033')
 
             # recalc mean
-            # div = 0
+            # recalc golf score
             total = 0
+            golf_score = 0
             for score in scoreboard[author]['scores']:
                 if score == 'X':
                     total += scoreboard[author]['scores'][score]*12
+                    golf_score += scoreboard[author]['scores'][score]*8
                 else:
                     total += scoreboard[author]['scores'][score]*int(score)
-                # div += scoreboard[author]['scores'][score]
+
+                if score == '1':
+                    golf_score += scoreboard[author]['scores'][score]*-3
+                elif score == '2':
+                    golf_score += scoreboard[author]['scores'][score]*-2
+                elif score == '3':
+                    golf_score += scoreboard[author]['scores'][score]*-1
+                # 4 is par
+                elif score == '5':
+                    golf_score += scoreboard[author]['scores'][score]*1
+                elif score == '6':
+                    golf_score += scoreboard[author]['scores'][score]*2
+
+    #print ("score: "+score+"\ngolf_score: "+str(golf_score))
 
             scoreboard[author]['games'] = scoreboard[author]['games']+1
             scoreboard[author]['mean'] = total/scoreboard[author]['games']
+            scoreboard[author]['golf'] = golf_score
 
             scoreboard_file = open('scoreboard.json', 'w')
             json.dump(scoreboard, scoreboard_file)
             scoreboard_file.close()
-            msg="Game recorded:\n"+author+"\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round"
+            msg="Game recorded:\n"+author+"\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score"
             await message.channel.send(msg)
 
         if '!scoreboard' in message.content:
