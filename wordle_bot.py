@@ -77,11 +77,9 @@ class MyClient(discord.Client):
                     golf_score += scoreboard[author]['scores'][score]*-1
                 # 4 is par
                 elif score == '5':
-                    golf_score += scoreboard[author]['scores'][score]*1
+                    golf_score += scoreboard[author]['scores'][score]
                 elif score == '6':
                     golf_score += scoreboard[author]['scores'][score]*2
-
-    #print ("score: "+score+"\ngolf_score: "+str(golf_score))
 
             scoreboard[author]['games'] = scoreboard[author]['games']+1
             scoreboard[author]['mean'] = total/scoreboard[author]['games']
@@ -102,7 +100,7 @@ class MyClient(discord.Client):
             n=1
             msg="Current Scoreboard\n"
             for key in sorted_scoreboard:
-                msg+=str(n)+": "+key+" - "+str(scoreboard[key]['games'])+" games "+str(round(scoreboard[key]['mean'],2))+" avg round\n"
+                msg+=str(n)+": "+key+" - "+str(scoreboard[key]['games'])+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[author]['golf'])+" golf score\n"
                 n+=1
             await message.channel.send(msg)
 
@@ -111,7 +109,7 @@ class MyClient(discord.Client):
             scoreboard = json.load(scoreboard_file)
             scoreboard_file.close()
 
-            msg="Stats for "+author+":\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['scores'])
+            msg="Stats for "+author+":\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score\n"str(scoreboard[author]['scores'])
             await message.channel.send(msg)
 
 
