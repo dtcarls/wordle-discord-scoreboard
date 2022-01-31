@@ -109,7 +109,7 @@ class MyClient(discord.Client):
             scoreboard = json.load(scoreboard_file)
             scoreboard_file.close()
 
-            msg="Stats for "+author+":\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score\n"str(scoreboard[author]['scores'])
+            msg="Stats for "+author+":\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score\n"+str(scoreboard[author]['scores'])
             await message.channel.send(msg)
 
 
