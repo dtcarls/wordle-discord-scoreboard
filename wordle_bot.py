@@ -114,20 +114,5 @@ class MyClient(discord.Client):
             msg="Stats for "+author+":\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score\n"+str(scoreboard[author]['scores'])
             await message.channel.send(msg)
 
-    def align(array):
-        col_size = {}
-        for row in array:
-            for i, col in enumerate(row):
-                col_size[i] = max(col_size.get(i, 0), len(col))
-        ncols = len(col_size)
-        result = []
-        for row in array:
-            row = list(row) + [''] * (ncols - len(row))
-            for i, col in enumerate(row):
-                row[i] = col.ljust(col_size[i])
-            result.append(row)
-        return result
-
-
 client = MyClient()
 client.run(TOKEN)
