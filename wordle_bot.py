@@ -96,7 +96,7 @@ class MyClient(discord.Client):
             scoreboard = json.load(scoreboard_file)
             scoreboard_file.close()
 
-            sorted_scoreboard=sorted(scoreboard, key=lambda x: scoreboard[x]['mean'])
+            sorted_scoreboard=sorted(scoreboard, key=lambda x: scoreboard[x]['golf'])
             n=1
             msg="```Current Scoreboard\n"
             for key in sorted_scoreboard:
