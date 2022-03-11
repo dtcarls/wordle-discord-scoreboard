@@ -159,7 +159,8 @@ class MyClient(discord.Client):
 
             sorted_scoreboard=sorted(scoreboard, key=lambda x: scoreboard[x]['golf'])
             n=1
-            msg="```Current Scoreboard\n"
+            msg="```Day " + str(scoreboard['0xCryptik']['games']) + " of 30\n"
+            msg+="Current Scoreboard\n"
             for key in sorted_scoreboard:
                 msg+=str(n).zfill(2)+": "+key.ljust(20)+"["+str(scoreboard[key]['games']).zfill(2)+" games]\n\t"+str(scoreboard[key]['golf']).rjust(2)+" golf score - "+str(round(scoreboard[key]['mean'],2)).ljust(4,'0')+" avg round\n"
                 # msg+=str(n).zfill(2)+": "+key.ljust(20)+" - "+str(scoreboard[key]['games']).zfill(2)+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
