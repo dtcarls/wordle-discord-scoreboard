@@ -131,3 +131,4 @@ dmypy.json
 .vscode/
 scoreboard.json
 *.ipynb
+lifetime_scoreboard.json
