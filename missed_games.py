@@ -63,7 +63,6 @@ def new_day():
             scoreboard_file.close()
 
 if __name__ == '__main__':
-    new_day()
     try:
         my_timezone = os.environ["TIMEZONE"]
     except KeyError:
