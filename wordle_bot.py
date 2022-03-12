@@ -111,7 +111,6 @@ class MyClient(discord.Client):
                     '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, 'X': 0}, 'golf': 0}
 
             score = line.split('/')[0][-1]
-            print ("lifetime: "+str(score))
             lifetime_scoreboard[author]['scores'][score] = lifetime_scoreboard[author]['scores'][score]+1
 
             # if score == '2':

@@ -18,9 +18,7 @@ def new_day():
 
     max_games=0
     for key in scoreboard:
-        print(key)
         games = scoreboard[key]['games']
-        print(games)
         if games > max_games:
             max_games = games
 
