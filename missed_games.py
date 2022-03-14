@@ -71,7 +71,7 @@ if __name__ == '__main__':
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
     sched.add_job(new_day, 'cron', id='new_day',
-                  hour=3, minute=30,
+                  hour=0, minute=10,
                   timezone=my_timezone, replace_existing=True)
 
     print("Start Schedule")
