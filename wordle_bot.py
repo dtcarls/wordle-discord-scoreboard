@@ -167,7 +167,7 @@ class MyClient(discord.Client):
                 n+=1
             await message.channel.send(msg+"```")
 
-        if '!lifetime_scoreboard' in message.content:
+        if '!lifetime_scoreboard' in message.content or '!lifetime' in message.content:
             lifetime_scoreboard_file = open('lifetime_scoreboard.json', 'r')
             lifetime_scoreboard = json.load(lifetime_scoreboard_file)
             lifetime_scoreboard_file.close()
