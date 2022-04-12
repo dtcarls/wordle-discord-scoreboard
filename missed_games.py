@@ -22,7 +22,7 @@ def new_day():
         if games > max_games:
             max_games = games
 
-    if max_games > 30:
+    if max_games >= 30:
         open('scoreboard.json', 'w').close()
         return
 
