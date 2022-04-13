@@ -155,10 +155,15 @@ class MyClient(discord.Client):
             scoreboard_file = open('scoreboard.json', 'r')
             scoreboard = json.load(scoreboard_file)
             scoreboard_file.close()
+            max_games = 0
+            for key in scoreboard:
+                games = scoreboard[key]['games']
+                if games > max_games:
+                    max_games = games
 
             sorted_scoreboard=sorted(scoreboard, key=lambda x: scoreboard[x]['golf'])
             n=1
-            msg="```Day " + str(scoreboard['0xCryptik']['games']) + " of 30\n"
+            msg="```Day " + str(max_games) + " of 30\n"
             msg+="Current Scoreboard\n"
             for key in sorted_scoreboard:
                 msg+=str(n).zfill(2)+": "+key.ljust(20)+"["+str(scoreboard[key]['games']).zfill(2)+" games]\n\t"+str(scoreboard[key]['golf']).rjust(2)+" golf score - "+str(round(scoreboard[key]['mean'],2)).ljust(4,'0')+" avg round\n"
