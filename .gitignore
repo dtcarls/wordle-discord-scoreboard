@@ -132,3 +132,4 @@ dmypy.json
 scoreboard.json
 *.ipynb
 lifetime_scoreboard.json
+history_scoreboard.json

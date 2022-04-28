@@ -24,6 +24,7 @@ def new_day():
 
     if max_games >= 30:
         open('scoreboard.json', 'w').close()
+        open('history_scoreboard.json', 'w').close()
         return
 
     for key in scoreboard:
@@ -61,6 +62,25 @@ def new_day():
             scoreboard_file = open('scoreboard.json', 'w')
             json.dump(scoreboard, scoreboard_file)
             scoreboard_file.close()
+
+            #historical for graphs
+            history_scoreboard = {}
+            history_scoreboard_file = open('history_scoreboard.json', 'r')
+
+            yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+            yesterday = yesterday.strftime('%m/%d')
+
+            try:
+                history_scoreboard = json.load(history_scoreboard_file)
+            except JSONDecodeError:
+                # empty file
+                pass
+            history_scoreboard_file.close()
+
+            history_scoreboard[yesterday][key] = golf_score
+            history_scoreboard_file = open('history_scoreboard.json', 'w')
+            json.dump(history_scoreboard, history_scoreboard_file)
+            history_scoreboard_file.close()
 
 if __name__ == '__main__':
     try:

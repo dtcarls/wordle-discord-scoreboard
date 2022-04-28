@@ -1,6 +1,7 @@
 import discord
 import os
 import json
+import datetime
 from json.decoder import JSONDecodeError
 from dotenv import load_dotenv
 
@@ -89,6 +90,28 @@ class MyClient(discord.Client):
             scoreboard_file = open('scoreboard.json', 'w')
             json.dump(scoreboard, scoreboard_file)
             scoreboard_file.close()
+
+             #historical for graphs
+            history_scoreboard = {}
+            history_scoreboard_file = open('history_scoreboard.json', 'a+')
+            history_scoreboard_file.close()
+            history_scoreboard_file = open('history_scoreboard.json', 'r')
+
+            current_date = datetime.datetime.now()
+            current_date = current_date.strftime("%m/%d")
+
+            try:
+                history_scoreboard = json.load(history_scoreboard_file)
+            except JSONDecodeError:
+                # empty file
+                pass
+            history_scoreboard_file.close()
+
+            history_scoreboard[current_date][author] = golf_score
+            history_scoreboard_file = open('history_scoreboard.json', 'w')
+            json.dump(history_scoreboard, history_scoreboard_file)
+            history_scoreboard_file.close()
+
             msg="Game recorded:\n"+author+"\n"+str(scoreboard[author]['games'])+" games\n"+str(round(scoreboard[author]['mean'],2))+" avg round\n"+str(scoreboard[author]['golf'])+" golf score"
             await message.channel.send(msg)
 
