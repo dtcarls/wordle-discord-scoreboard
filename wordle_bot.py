@@ -91,7 +91,9 @@ class MyClient(discord.Client):
             json.dump(scoreboard, scoreboard_file)
             scoreboard_file.close()
 
-             #historical for graphs
+            #############################
+            ### Historical for graphs ###
+            #############################
             history_scoreboard = {}
             history_scoreboard_file = open('history_scoreboard.json', 'a+')
             history_scoreboard_file.close()
@@ -106,6 +108,9 @@ class MyClient(discord.Client):
                 # empty file
                 pass
             history_scoreboard_file.close()
+
+            if current_date not in history_scoreboard:
+                history_scoreboard[current_date] = {}
 
             history_scoreboard[current_date][author] = golf_score
             history_scoreboard_file = open('history_scoreboard.json', 'w')
