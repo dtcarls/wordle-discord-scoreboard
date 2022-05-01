@@ -2,6 +2,8 @@ import discord
 import os
 import json
 import datetime
+import matplotlib.pyplot as plt
+import pandas as pd
 from json.decoder import JSONDecodeError
 from dotenv import load_dotenv
 
@@ -180,6 +182,29 @@ class MyClient(discord.Client):
             #await message.channel.send(msg)
 
         if '!scoreboard' in message.content:
+            history_scoreboard_file = open('history_scoreboard.json', 'r')
+            history_scoreboard = json.load(history_scoreboard_file)
+            history_scoreboard_file.close()
+            #graph creation
+            x_axis = []
+            score_dict = {}
+            for key in history_scoreboard:
+                x_axis.append(key)
+                for user in history_scoreboard[key]:
+                    if user not in score_dict:
+                        score_dict[user]=[]
+                    score_dict[user]+=[history_scoreboard[key][user]]
+
+            df = pd.DataFrame(score_dict,index=x_axis)
+            for col in df.columns:
+                plt.plot(x_axis, df[col], label=col, linestyle='-', marker='o')
+            plt.legend()
+            plt.savefig('history.png', bbox_inches='tight')
+            f = discord.File(io.BytesIO(link), filename="history.png")
+            e = discord.Embed(title="Scoreboard", colour=discord.Colour(0x278d89))
+            e.set_image(url=f'''attachment://history.png''')
+
+            #sorted scoreboard
             scoreboard_file = open('scoreboard.json', 'r')
             scoreboard = json.load(scoreboard_file)
             scoreboard_file.close()
@@ -198,7 +223,7 @@ class MyClient(discord.Client):
                 # msg+=str(n).zfill(2)+": "+key.ljust(20)+" - "+str(scoreboard[key]['games']).zfill(2)+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
                 # msg+=str(n)+": "+key)+" - "+str(scoreboard[key]['games']).zfill(2)+" games "+str(round(scoreboard[key]['mean'],2))+" avg round "+str(scoreboard[key]['golf'])+" golf score\n"
                 n+=1
-            await message.channel.send(msg+"```")
+            await message.channel.send(file=f, embed=e, content=msg+"```")
 
         if '!lifetime_scoreboard' in message.content or '!lifetime' in message.content:
             lifetime_scoreboard_file = open('lifetime_scoreboard.json', 'r')
