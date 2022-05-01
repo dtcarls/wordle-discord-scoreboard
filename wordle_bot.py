@@ -1,5 +1,6 @@
 import discord
 import os
+import io
 import json
 import datetime
 import matplotlib.pyplot as plt
@@ -198,11 +199,11 @@ class MyClient(discord.Client):
             df = pd.DataFrame(score_dict,index=x_axis)
             for col in df.columns:
                 plt.plot(x_axis, df[col], label=col, linestyle='-', marker='o')
-            plt.legend()
+            plt.legend(bbox_to_anchor=(-0.1,1))
             plt.savefig('history.png', bbox_inches='tight')
-            f = discord.File(io.BytesIO(), filename="history.png")
-            e = discord.Embed(title="Scoreboard", colour=discord.Colour(0x278d89))
-            e.set_image(url=f'''attachment://history.png''')
+            f = discord.File("history.png", filename="history.png")
+            e = discord.Embed(title="Historical")
+            e.set_image(url="attachment://history.png")
 
             #sorted scoreboard
             scoreboard_file = open('scoreboard.json', 'r')
