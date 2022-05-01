@@ -200,7 +200,7 @@ class MyClient(discord.Client):
                 plt.plot(x_axis, df[col], label=col, linestyle='-', marker='o')
             plt.legend()
             plt.savefig('history.png', bbox_inches='tight')
-            f = discord.File(io.BytesIO(link), filename="history.png")
+            f = discord.File(io.BytesIO(), filename="history.png")
             e = discord.Embed(title="Scoreboard", colour=discord.Colour(0x278d89))
             e.set_image(url=f'''attachment://history.png''')
 
