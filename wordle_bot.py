@@ -204,6 +204,7 @@ class MyClient(discord.Client):
             f = discord.File("history.png", filename="history.png")
             e = discord.Embed(title="Historical")
             e.set_image(url="attachment://history.png")
+            plt.close()
 
             #sorted scoreboard
             scoreboard_file = open('scoreboard.json', 'r')
