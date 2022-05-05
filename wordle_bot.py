@@ -203,6 +203,7 @@ class MyClient(discord.Client):
             df = pd.DataFrame(score_dict,index=x_axis)
             for col in df.columns:
                 plt.plot(x_axis, df[col], label=col, linestyle='-', marker='o')
+            plt.gca().invert_yaxis()
             plt.legend(bbox_to_anchor=(-0.1,1))
             plt.savefig('history.png', bbox_inches='tight')
             f = discord.File("history.png", filename="history.png")
