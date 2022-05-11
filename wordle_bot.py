@@ -197,7 +197,7 @@ class MyClient(discord.Client):
                     score_dict[user]+=[history_scoreboard[key][user]]
 
             for key in score_dict:
-                if len(score_dict[key]) < len(x_axis):
+                while len(score_dict[key]) < len(x_axis):
                     score_dict[key]+=score_dict[key][-1:]
 
             df = pd.DataFrame(score_dict,index=x_axis)
