@@ -256,5 +256,8 @@ class MyClient(discord.Client):
         #     await message.channel.send(msg)
 
 print("Start Client")
-client = MyClient()
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = MyClient(intents=intents)
 client.run(TOKEN)
